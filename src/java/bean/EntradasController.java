@@ -316,22 +316,29 @@ public class EntradasController implements Serializable {
      
     public void agregarDatosProductos(){
         try{
-            if(!(this.cantidadProducto.matches("[0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") 
+            if(!(this.cantidadProducto.matches("[0-9.0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") 
                || !(this.precioUnitario.matches("[0-9.0-9]*")) || this.precioUnitario.equals("0") || this.precioUnitario.equals("") ){
                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"ERROR"," Datos Incorrectos "));
                  this.cantidadProducto = null;
                  this.precioUnitario = null;
             }else{
                 this.selectedR = ejbFacadeR.encontarProductos(this.productoSeleccionado);
-                items2.add(new Entradas(null,this.selectedP,this.selectedR,this.selectedR.getProCodigopro(),
-                        null,this.Transportista,this.LugarLlagada,Integer.parseInt(this.cantidadProducto),
-                        new BigDecimal(this.precioUnitario), new Date() , BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto)* Double.parseDouble(this.precioUnitario) ) )  );
+                items2.add(new Entradas(null,
+                        this.selectedP,
+                        this.selectedR,
+                        this.selectedR.getProCodigopro(),
+                        null,this.Transportista,
+                        this.LugarLlagada,
+                        new BigDecimal(this.cantidadProducto),
+                        new BigDecimal(this.precioUnitario), new Date() , 
+                        BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto)* Double.parseDouble(this.precioUnitario) ) 
+                ));
                 this.total();
                 this.cantidadProducto = null;
                 this.precioUnitario = null;
             }
-            
-        }catch(Exception e){        
+        }
+        catch(Exception e){        
         }
     }
      
@@ -353,16 +360,16 @@ public class EntradasController implements Serializable {
          }
      }
      
-     public void total(){
+    public void total(){
          BigDecimal Total =new BigDecimal("0");
          for(Entradas en : items2){
-             BigDecimal subtotal= en.getEntPrecioUni().multiply(new BigDecimal(en.getEntCantidad()));
-             en.setEntSubtotal(subtotal);
-             Total = Total.add(subtotal);
+            BigDecimal subtotal= en.getEntPrecioUni().multiply(en.getEntCantidad());
+            en.setEntSubtotal(subtotal);
+            Total = Total.add(subtotal);
          }
-         double aux = Total.doubleValue()+(Total.doubleValue()*0.12); 
+         double aux = (Total.doubleValue()*1.12); 
          setTotalV(Double.toString((double)Math.round(aux * 100d) / 100d));
-     }
+    }
 
      
       public void guardarEntrada(){
@@ -386,7 +393,7 @@ public class EntradasController implements Serializable {
 
                      Productos pro = this.ejbFacadeR.encontarProductos2(en.getEntCodigo());
                      if (this.bodega.getBdNombre().equals(pro.getBdId().getBdNombre())) {
-                         pro.setProCantidad(en.getEntCantidad() + pro.getProCantidad());
+                         pro.setProCantidad(new BigDecimal(en.getEntCantidad().doubleValue() + pro.getProCantidad().doubleValue()));
                          pro.setProPrecioUni(en.getEntPrecioUni());
                          pro.setProSubPrec(BigDecimal.valueOf(pro.getProCantidad().doubleValue() * pro.getProPrecioUni().doubleValue()));
                          pro.setProTotalIva(BigDecimal.valueOf(pro.getProSubPrec().doubleValue() + pro.getProSubPrec().doubleValue() * 0.12));
@@ -406,7 +413,7 @@ public class EntradasController implements Serializable {
                             {           
                                 Productos pro2 = lstProductos.get(i);
                                 bandera =  false;
-                                pro2.setProCantidad(en.getEntCantidad() + pro2.getProCantidad());
+                                pro2.setProCantidad(new BigDecimal(en.getEntCantidad().doubleValue() + pro2.getProCantidad().doubleValue()));
                                 pro2.setProPrecioUni(en.getEntPrecioUni());
                                 pro2.setProSubPrec(BigDecimal.valueOf(pro2.getProCantidad().doubleValue() * pro2.getProPrecioUni().doubleValue()));
                                 pro2.setProTotalIva(BigDecimal.valueOf(pro2.getProSubPrec().doubleValue() + pro2.getProSubPrec().doubleValue() * 0.12));
@@ -589,21 +596,29 @@ public class EntradasController implements Serializable {
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione una entrada", "Seleccione una entrada"));
         }
-
     }
     
     public void verReporte() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        guardarEntrada();
-        //Instancia hacia la clase reporteProductos        
-        reporteEntrada rFactura = new reporteEntrada();
+        if( this.totalV.length() == 0 ){
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Second Message", "Debe Ingresar Productos"));
+        }
+        else
+        {
+            guardarEntrada();
+            //Instancia hacia la clase reporteProductos        
+            reporteEntrada rFactura = new reporteEntrada();
 
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
-        String ruta = servletContext.getRealPath("/Reportes/EntradaReporte.jasper");
-        rFactura.getReporte(ruta, this.numeroGuiaResp);
-        FacesContext.getCurrentInstance().responseComplete();
-         this.numeroGuiaResp="";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+            String ruta = servletContext.getRealPath("/Reportes/EntradaReporte.jasper");
+            rFactura.getReporte(ruta, this.numeroGuiaResp);
+            FacesContext.getCurrentInstance().responseComplete();
+            this.numeroGuiaResp="";
+        }
+        
+        
 
     }
     public void create() {

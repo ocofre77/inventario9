@@ -70,7 +70,7 @@ public class Entradas implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ENT_CANTIDAD")
-    private int entCantidad;
+    private BigDecimal entCantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -108,7 +108,7 @@ public class Entradas implements Serializable {
         this.entId = entId;
     }
 
-    public Entradas(Integer entId, String entCodigo, int entCantidad, BigDecimal entPrecioUni, Date entFecha, String entNumero) {
+    public Entradas(Integer entId, String entCodigo, BigDecimal entCantidad, BigDecimal entPrecioUni, Date entFecha, String entNumero) {
         this.entId = entId;
         this.entCodigo = entCodigo;
         this.entCantidad = entCantidad;
@@ -117,7 +117,7 @@ public class Entradas implements Serializable {
         this.entNumero = entNumero;
     }
 
-     public Entradas(Integer entId, Proveedor provId, Productos proId4, String entCodigo, String entFactura, String entTransportista, String entLugarLlegada, int entCantidad, BigDecimal entPrecioUni, Date entFecha) {
+     public Entradas(Integer entId, Proveedor provId, Productos proId4, String entCodigo, String entFactura, String entTransportista, String entLugarLlegada, BigDecimal entCantidad, BigDecimal entPrecioUni, Date entFecha) {
         this.entId = entId;
          this.provId = provId;
         this.proId4 = proId4;
@@ -129,7 +129,7 @@ public class Entradas implements Serializable {
         this.entFecha = entFecha;       
     }
 
-    public Entradas(Integer entId,Proveedor provId, Productos proId4, String entCodigo, String entFactura, String entTransportista, String entLugarLlegada, int entCantidad, BigDecimal entPrecioUni, Date entFecha, BigDecimal entSubtotal) {
+    public Entradas(Integer entId,Proveedor provId, Productos proId4, String entCodigo, String entFactura, String entTransportista, String entLugarLlegada, BigDecimal entCantidad, BigDecimal entPrecioUni, Date entFecha, BigDecimal entSubtotal) {
         this.entId = entId;
         this.entCodigo = entCodigo;
         this.entTransportista = entTransportista;
@@ -174,11 +174,11 @@ public class Entradas implements Serializable {
         this.entLugarLlegada = entLugarLlegada;
     }
 
-    public int getEntCantidad() {
+    public BigDecimal getEntCantidad() {
         return entCantidad;
     }
 
-    public void setEntCantidad(int entCantidad) {
+    public void setEntCantidad(BigDecimal entCantidad) {
         this.entCantidad = entCantidad;
     }
 

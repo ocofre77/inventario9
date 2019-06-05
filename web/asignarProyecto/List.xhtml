@@ -75,7 +75,7 @@
                         </p:layoutUnit>                       
                     </p:layout> 
                     <p:separator/>
-                    <p:layout id="capaDatosProductos" style="width: 100%; height: 300px">
+                    <p:layout id="capaDatosProductos" style="width: 1000px !important; height: 300px">
                          <p:layoutUnit  id="datosProducto" position="center" style="padding: 5px; text-align: justify; font-size: 14px" size="500">
                             <h:panelGrid id="gridDatosProducto" columns="3">
                                 <p:outputLabel value="ELEGIR PRODUCTO " style="font-weight: bold"/>       
@@ -103,9 +103,9 @@
                                         <f:facet name="input" >
                                             <h:inputText value="#{item.salCantidad}" label="Cantidad de producto" 
                                                          required="true" requiredMessage="Es necesario una cantidad" 
-                                                         converter="#{Integer}" converterMessage="Cantidad fuera de rango" 
+                                                         converter="#{Double}" converterMessage="Cantidad fuera de rango" 
                                                          validatorMessage="Cantidad fuera de rango">
-                                                <o:validator validatorId="javax.faces.LongRange" minimum="1" maximum="#{item.proId4.proCantidad}" />  
+                                                
                                             </h:inputText>
                                         </f:facet>
                                     </p:cellEditor>   
@@ -131,39 +131,28 @@
                             
                             <center>
                                 
-                            <h:panelGrid id="gridTotal"  columns="2" style="font-size: 14px; margin: 0 auto;">
-                                    TOTAL DE SALIDAS $
-                                    <p:outputLabel value="#{asignarProyectoController.totalV}"> 
-                                        
-                                    </p:outputLabel>
+                                <h:panelGrid id="gridTotal"  columns="2" style="font-size: 14px; margin: 0 auto;">
+                                        TOTAL DE SALIDAS $
+                                        <p:outputLabel value="#{asignarProyectoController.totalV}"> 
+                                        </p:outputLabel>
+                                </h:panelGrid>
 
-                            </h:panelGrid>
-                            <h:panelGrid id="gridExtras" columns="4" cellpadding="5" class="ui-fluid" style="font-size: 14px; margin: 0 auto;">
+                                <h:panelGrid id="gridExtras" columns="4" cellpadding="5" class="ui-fluid" style="font-size: 14px; margin: 0 auto;">
                                 Observaciones<p:inputText value="#{asignarProyectoController.observaciones}"/>
                                 Gastos Adicionales<p:inputText value="#{asignarProyectoController.gastosAdicionales}" placeholder="0.00" ></p:inputText>
-                              
-                            </h:panelGrid>
+                                </h:panelGrid>
                                 
-                                
-                            <p:separator/>
-                            <Table>
-                                <tr>
-                                    <td >
-                                        <br/>
-                                       <h:commandLink id="btnImprimir" actionListener="#{asignarProyectoController.verReporte()}"  title="Exportar a PDF">  <img src="../images/botonRegistrar.jpg" id="foto" alt=""/> </h:commandLink>                              
-                                    </td>
-                                     <td>                                         
+                                <p:separator/>
+                                <table>
+                                    <tr>
+                                        <td >
+                                            <h:commandLink id="btnImprimir" actionListener="#{asignarProyectoController.verReporte()}"  title="Exportar a PDF">  <img src="../images/botonRegistrar.jpg" id="foto" alt=""/> </h:commandLink>                              
+                                        </td>
+                                        <td>                                         
                                             <p:commandButton value="CANCELAR"   icon="ui-icon-closethick" actionListener="#{asignarProyectoController.limpiar()}" update=":AForm" />                              
-                                    </td>
-                                    
-                                </tr>
-                               
-                            </Table>
-                            
-                          
-                            
-                          <br/>   
-                           
+                                        </td>
+                                    </tr>
+                                </table>
                             </center>                             
                         </p:layoutUnit>
                     </p:layout> 
@@ -178,7 +167,7 @@
                                  paginator="true"
                                  rowKey="#{item.proyId}"
                                  rows="5"
-                                 rowsPerPageTemplate="5,10,15,20,25,30"
+                                 rowsPerPageTemplate="5,10,15,20,25,30" 
                                  >
                         <p:column>
                             <f:facet name="header">
@@ -234,7 +223,7 @@
                                  paginator="true"
                                  rowKey="#{item.resId}"
                                  rows="5"
-                                 rowsPerPageTemplate="5,10,15,20,25,30"
+                                 rowsPerPageTemplate="5,10,15,20,25,30" style="width: 900px !important;"
                                  >
                         <p:column>
                             <f:facet name="header">
@@ -362,14 +351,17 @@
                            resizable="false" header="CANTIDAD" 
                            hideEffect="explode" >
 
-                     <h:outputText value=" Cantidad:" /> <p:spinner id="cantidad" min="1" style="height: 12px !important; box-shadow: none !important; border-radius: 4px 0px 0px 4px;" value="#{asignarProyectoController.cantidadProducto}"/>
+                    <h:outputText value=" Cantidad:" /> 
+                    <p:spinner id="cantidad" min="0.01" stepFactor="0.01" style="height: 12px !important; box-shadow: none !important; border-radius: 4px 0px 0px 4px;" value="#{asignarProyectoController.cantidadProducto}"/>
                      
-                         <br/> <br/><br/>
-                         <center><h:outputText value="Stock:" />
+                    <br/><br/><br/>
+                    <center>
+                        <h:outputText value="Stock:" />
+                        <h:outputText value="#{asignarProyectoController.cantidadSeleccionada.setScale(2,BigDecimal.ROUND_UP)}" title="#{bundle.ViewProductosTitle_proCantidad}"/>
+                    </center>
+                    <br/>
                     
-                        <h:outputText value="#{asignarProyectoController.cantidadSeleccionada}" title="#{bundle.ViewProductosTitle_proCantidad}"/></center>
-                         <br/>
-                     <p:commandButton value="ACEPTAR" actionListener="#{asignarProyectoController.agregarDatosProductos()}"  
+                    <p:commandButton value="ACEPTAR" actionListener="#{asignarProyectoController.agregarDatosProductos()}"  
                                       oncomplete="PF('dialogoProductos').hide(); PF('dialogoProductosCanPre').hide();"
                                       update=":AForm:tablaProductosEntrada :AForm:dlgProductosCanPre :AForm:gridTotal"/>
 

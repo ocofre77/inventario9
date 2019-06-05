@@ -18,7 +18,7 @@
         <ui:define name="body">
             <h:form id="AForm">
                 <p:growl id="mensajeGeneral" showDetail="true" autoUpdate="true" life="3000"/>
-                <p:panel header="DEVOLUCIONES SALIDAS" style="width: 900px; margin:  0 auto; text-align: center">
+                <p:panel header="DEVOLUCIONES SALIDAS" style="width: 900px; margin:  0 auto; text-align: center;">
                     <p:layout id="capaDatosProveedor" style="width: 100%; height: 450px">
                         <p:layoutUnit  id="datosProveedor" position="center" style="padding: 5px; text-align: justify; font-size: 14px" size="500">
                            
@@ -63,9 +63,8 @@
                                         <f:facet name="input">
                                             <p:inputText value="#{item.devCantidad}" label="Cantidad de producto" 
                                                          required="true" requiredMessage="Es necesario una cantidad" 
-                                                         converter="#{Integer}" converterMessage="Esta no es una cantidad" 
+                                                         converter="#{Double}" converterMessage="Esta no es una cantidad" 
                                                          validatorMessage="Cantidad fuera de rango">
-                                                <o:validator validatorId="javax.faces.LongRange" minimum="1" maximum="#{item.salId.salCantidad}" />  
                                             </p:inputText>
                                         </f:facet>
                                     </p:cellEditor>   
@@ -194,27 +193,29 @@
                                              oncomplete="PF('dialogoProductosCanPre').show();"
                                              update=":AForm:dlgProductosCanPre"/>
                         </p:column>  
-                    </p:dataTable>                    
+                    </p:dataTable>
+                    
                     <p:commandButton value="Cerrar" onclick="PF('dialogoProductos').hide();"/>
                     
                 </p:dialog>
                 <!--VENTANA PARA AÑADIR CANTIDAD PRODUCTOS -->
-                 <p:dialog id="dlgProductosCanPre" widgetVar="dialogoProductosCanPre" 
+                <p:dialog id="dlgProductosCanPre" widgetVar="dialogoProductosCanPre" 
                            resizable="false" header="CANTIDAD " 
                            hideEffect="explode" >
 
-                     Cantidad:<p:spinner id="cantidad" min="1" style="height: 12px !important; box-shadow: none !important; border-radius: 4px 0px 0px 4px;" value="#{devolucionesController.cantidadProducto}"/>
-                     <br/> <br/>
-                     <center><h:outputText value="Stock:" />
-                     
-                        <h:outputText value="#{devolucionesController.cantidadSeleccionada}" title="#{bundle.ViewProductosTitle_proCantidad}"/></center>
-                     <br/>
+                    Cantidad:<p:spinner id="cantidad" min="0.01" stepFactor="0.01" value="#{devolucionesController.cantidadProducto}"/>
+                    <br/><br/>
+                    <center>
+                        <h:outputText value="Stock:" />
+                        <h:outputText value="#{devolucionesController.cantidadSeleccionada}" title="#{bundle.ViewProductosTitle_proCantidad}"/>
+                    </center>
+                    <br/>
                          
-                     <p:commandButton value="ACEPTAR" actionListener="#{devolucionesController.agregarDatosProductos()}"  
+                    <p:commandButton value="ACEPTAR" actionListener="#{devolucionesController.agregarDatosProductos()}"  
                                       oncomplete="PF('dialogoProductos').hide(); PF('dialogoProductosCanPre').hide();"
                                       update=":AForm:tablaProductosEntrada :AForm:dlgProductosCanPre :AForm:gridTotal"/>
 
-                 </p:dialog>
+                </p:dialog>
                 
                 
             </h:form>

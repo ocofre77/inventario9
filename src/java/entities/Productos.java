@@ -84,7 +84,7 @@ public class Productos implements Serializable {
     @Column(name = "PRO_CATEGORIA")
     private String proCategoria;
     @Column(name = "PRO_CANTIDAD")
-    private Integer proCantidad;
+    private BigDecimal proCantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -204,11 +204,11 @@ public class Productos implements Serializable {
         this.proCategoria = proCategoria;
     }
 
-    public Integer getProCantidad() {
+    public BigDecimal getProCantidad() {
         return proCantidad;
     }
 
-    public void setProCantidad(Integer proCantidad) {
+    public void setProCantidad(BigDecimal proCantidad) {
         this.proCantidad = proCantidad;
     }
 

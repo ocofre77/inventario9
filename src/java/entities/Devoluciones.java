@@ -61,7 +61,7 @@ public class Devoluciones implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DEV_CANTIDAD")
-    private int devCantidad;
+    private BigDecimal devCantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "DEV_SUBTOTAL")
     private BigDecimal devSubtotal;
@@ -83,13 +83,13 @@ public class Devoluciones implements Serializable {
         this.devId = devId;
     }
 
-    public Devoluciones(Integer devId, Date devFecha, int devCantidad) {
+    public Devoluciones(Integer devId, Date devFecha, BigDecimal devCantidad) {
         this.devId = devId;
         this.devFecha = devFecha;
         this.devCantidad = devCantidad;
     }
     
-     public Devoluciones(Integer devId, Date devFecha, int devCantidad, String devRazon, String devNumero, AsignarProyecto salId) {
+     public Devoluciones(Integer devId, Date devFecha, BigDecimal devCantidad, String devRazon, String devNumero, AsignarProyecto salId) {
         this.devId = devId;
         this.devFecha = devFecha;
         this.devCantidad = devCantidad;
@@ -97,7 +97,7 @@ public class Devoluciones implements Serializable {
         this.devNumero = devNumero;
         this.salId = salId;
     }
-     public Devoluciones(Integer devId, Date devFecha, int devCantidad, BigDecimal precio, String devRazon, String devNumero, AsignarProyecto salId) {
+     public Devoluciones(Integer devId, Date devFecha, BigDecimal devCantidad, BigDecimal precio, String devRazon, String devNumero, AsignarProyecto salId) {
         this.devId = devId;
         this.devFecha = devFecha;
         this.devCantidad = devCantidad;
@@ -135,11 +135,11 @@ public class Devoluciones implements Serializable {
         this.devFecha = devFecha;
     }
 
-    public int getDevCantidad() {
+    public BigDecimal getDevCantidad() {
         return devCantidad;
     }
 
-    public void setDevCantidad(int devCantidad) {
+    public void setDevCantidad(BigDecimal devCantidad) {
         this.devCantidad = devCantidad;
     }
 

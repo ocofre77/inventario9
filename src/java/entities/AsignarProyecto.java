@@ -72,7 +72,7 @@ public class AsignarProyecto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "SAL_CANTIDAD")
-    private int salCantidad;
+    private BigDecimal salCantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SAL_SUBTOTAL")
     private BigDecimal salSubtotal;
@@ -106,14 +106,14 @@ public class AsignarProyecto implements Serializable {
         this.salId = salId;
     }
 
-    public AsignarProyecto(Integer salId, String salNumero, Date salFecha, int salCantidad) {
+    public AsignarProyecto(Integer salId, String salNumero, Date salFecha, BigDecimal salCantidad) {
         this.salId = salId;
         this.salNumero = salNumero;
         this.salFecha = salFecha;
         this.salCantidad = salCantidad;
     }
 
-      public AsignarProyecto(Integer salId, Date salFecha, String salTransportista, Integer salCantidad, String salObservaciones, Proyecto proyId, Productos proId4, Responsable resId) {
+      public AsignarProyecto(Integer salId, Date salFecha, String salTransportista, BigDecimal salCantidad, String salObservaciones, Proyecto proyId, Productos proId4, Responsable resId) {
         this.salId = salId;
         this.salFecha = salFecha;
         this.salTransportista = salTransportista;
@@ -124,7 +124,7 @@ public class AsignarProyecto implements Serializable {
         this.resId = resId;
     }
 
-    public AsignarProyecto(Integer salId, Date salFecha, String salTransportista, Integer salCantidad, String salObservaciones, BigDecimal salSubtotal, Proyecto proyId, Productos proId4, Responsable resId) {
+    public AsignarProyecto(Integer salId, Date salFecha, String salTransportista, BigDecimal salCantidad, String salObservaciones, BigDecimal salSubtotal, Proyecto proyId, Productos proId4, Responsable resId) {
         this.salId = salId;
         this.salFecha = salFecha;
         this.salTransportista = salTransportista;
@@ -167,11 +167,11 @@ public class AsignarProyecto implements Serializable {
         this.salTransportista = salTransportista;
     }
 
-    public int getSalCantidad() {
+    public BigDecimal getSalCantidad() {
         return salCantidad;
     }
 
-    public void setSalCantidad(int salCantidad) {
+    public void setSalCantidad(BigDecimal salCantidad) {
         this.salCantidad = salCantidad;
     }
 

@@ -54,7 +54,7 @@ WHERE
 	<field name="asignar_proyecto_SAL_NUMERO" class="java.lang.String"/>
 	<field name="asignar_proyecto_SAL_FECHA" class="java.sql.Date"/>
 	<field name="asignar_proyecto_SAL_TRANSPORTISTA" class="java.lang.String"/>
-	<field name="asignar_proyecto_SAL_CANTIDAD" class="java.lang.Integer"/>
+	<field name="asignar_proyecto_SAL_CANTIDAD" class="java.math.BigDecimal"/>
 	<field name="asignar_proyecto_SAL_SUBTOTAL" class="java.math.BigDecimal"/>
 	<field name="asignar_proyecto_SAL_TOTAL" class="java.math.BigDecimal"/>
 	<field name="asignar_proyecto_SAL_TOTAL_IVA" class="java.math.BigDecimal"/>
@@ -222,58 +222,58 @@ WHERE
 				<text><![CDATA[TRANSPORTISTA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="327" y="75" width="60" height="20" forecolor="#000000" uuid="3b5e30f5-b100-4a41-970f-64a2496a1feb"/>
+				<reportElement x="360" y="75" width="44" height="20" forecolor="#000000" uuid="3b5e30f5-b100-4a41-970f-64a2496a1feb"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CANTIDAD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="24" y="75" width="60" height="20" forecolor="#000000" uuid="29844c33-fcfe-4c56-993f-bf3ac811e493"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CÓDIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="90" y="75" width="78" height="20" forecolor="#000000" uuid="cb4fe7c8-9186-4f3c-a7b6-69e3f6890461"/>
+				<reportElement x="90" y="75" width="124" height="20" forecolor="#000000" uuid="cb4fe7c8-9186-4f3c-a7b6-69e3f6890461"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRODUCTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="75" width="61" height="20" forecolor="#000000" uuid="1e359e02-6914-4237-af93-ea90f867542a"/>
+				<reportElement x="409" y="75" width="60" height="20" forecolor="#000000" uuid="1e359e02-6914-4237-af93-ea90f867542a"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRECIO UNITARIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="465" y="75" width="64" height="20" forecolor="#000000" uuid="c1e16497-71bf-4199-99e1-995a3b7fcd6c"/>
+				<reportElement x="478" y="75" width="60" height="20" forecolor="#000000" uuid="c1e16497-71bf-4199-99e1-995a3b7fcd6c"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="10" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SUBTOTAL]]></text>
+				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="176" y="75" width="60" height="20" uuid="3fd9a291-e4b7-45bb-823b-8638b8de94dd"/>
+				<reportElement x="222" y="75" width="60" height="20" uuid="3fd9a291-e4b7-45bb-823b-8638b8de94dd"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SERIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="250" y="55" width="66" height="20" uuid="ebfb3e2b-fc6e-47b7-ba51-e0db7351135b"/>
+				<reportElement x="288" y="55" width="66" height="20" uuid="ebfb3e2b-fc6e-47b7-ba51-e0db7351135b"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MODELO /]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="250" y="75" width="66" height="20" uuid="b68ac760-d696-4a8c-a907-708548b14f47"/>
+				<reportElement x="288" y="75" width="66" height="20" uuid="b68ac760-d696-4a8c-a907-708548b14f47"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Arial" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MARCA]]></text>
 			</staticText>
@@ -293,99 +293,99 @@ WHERE
 				<reportElement x="90" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="9f60f886-9d45-4798-b425-1c7444fa63fd"/>
 			</line>
 			<line>
-				<reportElement x="173" y="60" width="1" height="35" forecolor="#CCCCCC" uuid="0c3b50ec-a9c7-48ff-bafe-d52da1d52d74"/>
+				<reportElement x="218" y="60" width="1" height="35" forecolor="#CCCCCC" uuid="0c3b50ec-a9c7-48ff-bafe-d52da1d52d74"/>
 			</line>
 			<line>
-				<reportElement x="240" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="2dbd786a-d898-4fd0-83d1-784ef004d962"/>
+				<reportElement x="284" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="2dbd786a-d898-4fd0-83d1-784ef004d962"/>
 			</line>
 			<line>
-				<reportElement x="322" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="30aa8aa3-2ba2-42b4-9101-c7ec8fca947d"/>
+				<reportElement x="357" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="30aa8aa3-2ba2-42b4-9101-c7ec8fca947d"/>
 			</line>
 			<line>
-				<reportElement x="392" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="4f619004-6961-42c4-aa24-37760f932cbe"/>
+				<reportElement x="406" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="4f619004-6961-42c4-aa24-37760f932cbe"/>
 			</line>
 			<line>
-				<reportElement x="461" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="12fa0287-0767-4eab-8e05-2c50d898e01a"/>
+				<reportElement x="475" y="59" width="1" height="35" forecolor="#CCCCCC" uuid="12fa0287-0767-4eab-8e05-2c50d898e01a"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="86" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<textField>
-				<reportElement x="91" y="4" width="77" height="78" forecolor="#000000" uuid="b7a91abe-a2b2-41f8-a2b7-b8b29267f47c"/>
+				<reportElement x="92" y="4" width="124" height="20" forecolor="#000000" uuid="b7a91abe-a2b2-41f8-a2b7-b8b29267f47c"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_NOMBRES}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="327" y="4" width="60" height="19" forecolor="#000000" uuid="ee9c4ac2-5fc0-4f43-b830-a015b4f5a6ed"/>
+				<reportElement x="360" y="4" width="44" height="19" forecolor="#000000" uuid="ee9c4ac2-5fc0-4f43-b830-a015b4f5a6ed"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{asignar_proyecto_SAL_CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="397" y="4" width="61" height="20" forecolor="#000000" uuid="afdb6a9a-8352-431d-8c20-6cd4db9b8839"/>
+				<reportElement x="409" y="4" width="60" height="20" forecolor="#000000" uuid="afdb6a9a-8352-431d-8c20-6cd4db9b8839"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_PRECIO_UNI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="465" y="4" width="65" height="20" forecolor="#000000" uuid="ee41fb99-a0c6-4e4c-b7fa-d1856ae8aaa7"/>
+				<reportElement x="478" y="4" width="60" height="20" forecolor="#000000" uuid="ee41fb99-a0c6-4e4c-b7fa-d1856ae8aaa7"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{asignar_proyecto_SAL_SUBTOTAL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="15" y="3" width="73" height="20" forecolor="#000000" uuid="86fa2552-4e2f-449d-a12a-d7db095058ec"/>
+				<reportElement x="16" y="3" width="73" height="20" forecolor="#000000" uuid="86fa2552-4e2f-449d-a12a-d7db095058ec"/>
 				<textElement textAlignment="Justified">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_CODIGOPRO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="176" y="4" width="60" height="78" uuid="21a70942-74e6-499d-a255-ea94aaa31b54"/>
+				<reportElement x="222" y="4" width="60" height="20" uuid="21a70942-74e6-499d-a255-ea94aaa31b54"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_SERIAL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="4" width="66" height="78" uuid="b15999df-ff90-4f2b-99a9-327ad2b59f08"/>
+				<reportElement x="288" y="4" width="66" height="20" uuid="b15999df-ff90-4f2b-99a9-327ad2b59f08"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_MODELO}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="14" y="82" width="527" height="1" forecolor="#CCCCCC" uuid="7eb12aa3-5058-4573-b426-e9e5348a147d"/>
+				<reportElement x="14" y="23" width="527" height="1" forecolor="#CCCCCC" uuid="7eb12aa3-5058-4573-b426-e9e5348a147d"/>
 			</line>
 			<line>
-				<reportElement x="541" y="1" width="1" height="81" forecolor="#CCCCCC" uuid="503ec1f7-ce73-4b97-9714-fbc74efb382e"/>
+				<reportElement x="541" y="1" width="1" height="22" forecolor="#CCCCCC" uuid="503ec1f7-ce73-4b97-9714-fbc74efb382e"/>
 			</line>
 			<line>
-				<reportElement x="90" y="0" width="1" height="81" forecolor="#CCCCCC" uuid="124e6842-1c9e-4b41-beb0-3c92df5f3a04"/>
+				<reportElement x="90" y="0" width="1" height="22" forecolor="#CCCCCC" uuid="124e6842-1c9e-4b41-beb0-3c92df5f3a04"/>
 			</line>
 			<line>
-				<reportElement x="461" y="1" width="1" height="81" forecolor="#CCCCCC" uuid="33cbac3a-b552-4fdb-8e88-ba174d73357f"/>
+				<reportElement x="475" y="1" width="1" height="22" forecolor="#CCCCCC" uuid="33cbac3a-b552-4fdb-8e88-ba174d73357f"/>
 			</line>
 			<line>
-				<reportElement x="392" y="1" width="1" height="81" forecolor="#CCCCCC" uuid="09ae29c7-8770-4b1b-a1b8-a121cedc94c4"/>
+				<reportElement x="406" y="1" width="1" height="22" forecolor="#CCCCCC" uuid="09ae29c7-8770-4b1b-a1b8-a121cedc94c4"/>
 			</line>
 			<line>
-				<reportElement x="322" y="0" width="1" height="81" forecolor="#CCCCCC" uuid="49a77392-da2c-4306-ad12-04172dd25c29"/>
+				<reportElement x="357" y="0" width="1" height="22" forecolor="#CCCCCC" uuid="49a77392-da2c-4306-ad12-04172dd25c29"/>
 			</line>
 			<line>
-				<reportElement x="240" y="0" width="1" height="81" forecolor="#CCCCCC" uuid="f21112f2-0577-4ea1-9c05-0fa6459b55d1"/>
+				<reportElement x="284" y="0" width="1" height="22" forecolor="#CCCCCC" uuid="f21112f2-0577-4ea1-9c05-0fa6459b55d1"/>
 			</line>
 			<line>
-				<reportElement x="173" y="1" width="1" height="81" forecolor="#CCCCCC" uuid="9a29f129-cb5d-4f3d-83ef-38edc6030727"/>
+				<reportElement x="218" y="1" width="1" height="22" forecolor="#CCCCCC" uuid="9a29f129-cb5d-4f3d-83ef-38edc6030727"/>
 			</line>
 			<line>
-				<reportElement x="14" y="1" width="1" height="81" forecolor="#CCCCCC" uuid="057a9f8c-4ca6-47b5-8bca-b8b008ff901a"/>
+				<reportElement x="14" y="1" width="1" height="22" forecolor="#CCCCCC" uuid="057a9f8c-4ca6-47b5-8bca-b8b008ff901a"/>
 			</line>
 		</band>
 	</detail>

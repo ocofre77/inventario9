@@ -403,11 +403,11 @@ public class ProductosController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-       public int allCantidad() {
-        int sum = 0;
-        for(Productos s : items) {
-            sum += s.getProCantidad();
-        }
+       public BigDecimal allCantidad() {
+        BigDecimal sum = new BigDecimal(0);
+        items.forEach((s) -> {
+            sum.add(s.getProCantidad());
+        });
         return sum;
     }
 
@@ -560,7 +560,7 @@ public class ProductosController implements Serializable {
             
             selected.setProTotalPro(1);
             if(selected.getProCantidad()==null || selected.getProCantidad().equals(null)){
-                  selected.setProCantidad(0);
+                  selected.setProCantidad(new BigDecimal(0));
             }
             
             selected.setProNombres(selected.getProNombres().toUpperCase());
@@ -612,8 +612,8 @@ public class ProductosController implements Serializable {
         } else {
             selected.setProTotalPro(items.size()+1);
             System.out.println("Total Productos "+items.size());
-            if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(0);}
-            selected.setProSubPrec(new BigDecimal(selected.getProCantidad()*selected.getProPrecioUni().doubleValue()));
+            if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(new BigDecimal(0));}
+            selected.setProSubPrec(new BigDecimal(selected.getProCantidad().doubleValue()*selected.getProPrecioUni().doubleValue()));
             System.out.println("Subtotal "+selected.getProSubPrec());
             selected.setProTotalPrec(selected.getProSubPrec());
             System.out.println("Total sin Iva "+selected.getProTotalPrec());
@@ -674,8 +674,8 @@ public class ProductosController implements Serializable {
     public void update() {
         this.pro1 = ejbFacade.Obtenerobj();
         guardarImagen();
-        if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(0);}
-            selected.setProSubPrec(new BigDecimal(selected.getProCantidad()*selected.getProPrecioUni().doubleValue()));
+        if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(new BigDecimal(0));}
+            selected.setProSubPrec(new BigDecimal(selected.getProCantidad().doubleValue()*selected.getProPrecioUni().doubleValue()));
             System.out.println("Subtotal "+selected.getProSubPrec());
             selected.setProTotalPrec(selected.getProSubPrec());
             System.out.println("Total sin Iva "+selected.getProTotalPrec());

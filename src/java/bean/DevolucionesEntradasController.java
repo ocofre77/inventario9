@@ -272,7 +272,7 @@ public class DevolucionesEntradasController implements Serializable {
                 System.out.println(".probarrr  " + this.productoSeleccionado);
                 this.selectD = this.ejbFacadeA.encontarFactura(this.productoSeleccionado, this.productos);
                 System.out.println(".Errorr " + this.selectD.getEntNumero() + "   ");
-                if (Integer.parseInt(this.cantidadProducto) > this.selectD.getEntCantidad()) {
+                if ( Double.parseDouble(this.cantidadProducto) > this.selectD.getEntCantidad().doubleValue() ) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "INCORRECTO", " Cantidad Excedida "));
                     this.cantidadProducto = null;
                 } else {
@@ -326,14 +326,14 @@ public class DevolucionesEntradasController implements Serializable {
                      en.setDeveRazon(this.observaciones);
                      this.ejbFacade.create(en);
                      Productos pro = this.ejbFacadeR.encontarProductos2(en.getEntId().getEntCodigo());
-                     pro.setProCantidad(pro.getProCantidad() -en.getDeveCantidad());
+                     pro.setProCantidad(BigDecimal.valueOf(pro.getProCantidad().doubleValue() - en.getDeveCantidad().doubleValue() ));
                      pro.setProPrecioUni(en.getDevePUnitario());
                      pro.setProSubPrec(BigDecimal.valueOf(pro.getProCantidad().doubleValue()*pro.getProPrecioUni().doubleValue()));
                      pro.setProTotalIva( BigDecimal.valueOf(pro.getProSubPrec().doubleValue()+pro.getProSubPrec().doubleValue()*0.12));
                      this.ejbFacadeR.edit(pro);
                      Entradas entrada = en.getEntId();
-                     entrada.setEntCantidad(entrada.getEntCantidad()-en.getDeveCantidad());
-                     entrada.setEntSubtotal(BigDecimal.valueOf(entrada.getEntSubtotal().doubleValue()-entrada.getEntCantidad()*entrada.getEntPrecioUni().doubleValue()));
+                     entrada.setEntCantidad(BigDecimal.valueOf(entrada.getEntCantidad().doubleValue()-en.getDeveCantidad().doubleValue() ));
+                     entrada.setEntSubtotal(BigDecimal.valueOf(entrada.getEntSubtotal().doubleValue()-entrada.getEntCantidad().doubleValue() * entrada.getEntPrecioUni().doubleValue()));
                      entrada.setEntTotal(entrada.getEntSubtotal());
                      entrada.setEntTotaliva(BigDecimal.valueOf(entrada.getEntSubtotal().doubleValue()+entrada.getEntSubtotal().doubleValue()*0.12));
                      this.ejbFacadeA.edit(entrada);

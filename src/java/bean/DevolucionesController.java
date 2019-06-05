@@ -51,7 +51,7 @@ public class DevolucionesController implements Serializable {
     private Devoluciones selected;
     private List<Devoluciones> items2;
     private Devoluciones selectedD;
-    private int CantidadSeleccionada;
+    private BigDecimal CantidadSeleccionada;
     private int codigo=0;
     
     private String FechaSistema;
@@ -106,11 +106,11 @@ public class DevolucionesController implements Serializable {
     @EJB
     private sesion.HerramientaFacade ejbFacade2;
 
-    public int getCantidadSeleccionada() {
+    public BigDecimal getCantidadSeleccionada() {
         return CantidadSeleccionada;
     }
 
-    public void setCantidadSeleccionada(int CantidadSeleccionada) {
+    public void setCantidadSeleccionada(BigDecimal CantidadSeleccionada) {
         this.CantidadSeleccionada = CantidadSeleccionada;
     }
 
@@ -308,7 +308,7 @@ public class DevolucionesController implements Serializable {
         }
     }
  
-    public void pedirCantidadProducto(String codigo, Productos productos,int cantidad){
+    public void pedirCantidadProducto(String codigo, Productos productos,BigDecimal cantidad){
           System.out.println(".jgyyhhh "+ codigo);
         this.productoSeleccionado=codigo;
         this.productos = productos;
@@ -317,7 +317,7 @@ public class DevolucionesController implements Serializable {
     
      public void agregarDatosProductos(){
         try{
-            if(!(this.cantidadProducto.matches("[0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") ){
+            if(!(this.cantidadProducto.matches("[0-9.0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") ){
                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"ERROR"," Datos Incorrectos "));
                  this.cantidadProducto = null;
             }else {
@@ -325,14 +325,14 @@ public class DevolucionesController implements Serializable {
                 System.out.println(".probarrr  " + this.productoSeleccionado);
                 this.selectD = this.ejbFacadeA.encontarFactura(this.productoSeleccionado, this.productos);
                 System.out.println(".Errorr " + this.selectD.getSalNumero() + "   ");
-                if (Integer.parseInt(this.cantidadProducto) > this.selectD.getSalCantidad()) {
+                if ( (new BigDecimal(this.cantidadProducto)).doubleValue() > this.selectD.getSalCantidad().doubleValue()) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "INCORRECTO", " Cantidad Excedida "));
                     this.cantidadProducto = null;
                 } else {
-                    items2.add(new Devoluciones(null, new Date(), Integer.parseInt(this.getCantidadProducto()),
+                    items2.add(new Devoluciones(null, new Date(), BigDecimal.valueOf( Double.parseDouble( this.getCantidadProducto())),
                             BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto) * (this.productos.getProPrecioUni()).doubleValue()),
                             this.Observaciones, this.selectD.getSalNumero(), this.selectD));
-                    total();
+                    this.total();
                     this.cantidadProducto = null;
                 }
             }
@@ -377,7 +377,7 @@ public class DevolucionesController implements Serializable {
                  Productos pro = this.ejbFacadeR.encontarProductos(en.getSalId().getProId4().getProId4());
                  
                  if (this.bodega.getBdNombre().equals(pro.getBdId().getBdNombre())) {
-                         pro.setProCantidad(pro.getProCantidad()+en.getDevCantidad());
+                         pro.setProCantidad(new BigDecimal(pro.getProCantidad().doubleValue() +en.getDevCantidad().doubleValue()));
                          pro.setProSubPrec(BigDecimal.valueOf(pro.getProCantidad().doubleValue() * pro.getProPrecioUni().doubleValue()));
                          pro.setProTotalIva(BigDecimal.valueOf(pro.getProSubPrec().doubleValue() + pro.getProSubPrec().doubleValue() * 0.12));
                          this.ejbFacadeR.edit(pro);
@@ -390,7 +390,7 @@ public class DevolucionesController implements Serializable {
                             {           
                                 Productos pro2 = lstProductos.get(i);
                                 bandera =  false;
-                                pro2.setProCantidad(en.getDevCantidad() + pro2.getProCantidad());
+                                pro2.setProCantidad(new BigDecimal(en.getDevCantidad().doubleValue() + pro2.getProCantidad().doubleValue()));
                 
                                 pro2.setProSubPrec(BigDecimal.valueOf(pro2.getProCantidad().doubleValue() * pro2.getProPrecioUni().doubleValue()));
                                 pro2.setProTotalIva(BigDecimal.valueOf(pro2.getProSubPrec().doubleValue() + pro2.getProSubPrec().doubleValue() * 0.12));
@@ -474,8 +474,8 @@ public class DevolucionesController implements Serializable {
                  
                  
                  AsignarProyecto asigpro = en.getSalId();
-                 asigpro.setSalCantidad(asigpro.getSalCantidad()-en.getDevCantidad());
-                 asigpro.setSalSubtotal(BigDecimal.valueOf(asigpro.getSalCantidad()*asigpro.getProId4().getProPrecioUni().doubleValue()));
+                 asigpro.setSalCantidad(new BigDecimal(asigpro.getSalCantidad().doubleValue()-en.getDevCantidad().doubleValue()));
+                 asigpro.setSalSubtotal(BigDecimal.valueOf(asigpro.getSalCantidad().doubleValue() * asigpro.getProId4().getProPrecioUni().doubleValue()));
                  System.out.println("Subtotal D antes"+asigpro.getSalSubtotal());
                  
                 
@@ -541,26 +541,26 @@ public class DevolucionesController implements Serializable {
        
     }
     
-      public void total(){
-         BigDecimal Total =new BigDecimal("0");
-         for(Devoluciones en : items2){
-             
-             BigDecimal subtotal= en.getSalId().getProId4().getProPrecioUni().multiply(new BigDecimal(en.getDevCantidad()));
-             en.setDevSubtotal(subtotal);
-             Total = Total.add(en.getDevSubtotal());
-         }
-         double aux = Total.doubleValue()+(Total.doubleValue()*0.12); 
-         setTotalV(Double.toString((double)Math.round(aux * 100d) / 100d));
+    public void total(){
+        BigDecimal Total =new BigDecimal("0");
+        for(Devoluciones en : items2){
+
+            BigDecimal subtotal= en.getSalId().getProId4().getProPrecioUni().multiply(new BigDecimal(en.getDevCantidad().doubleValue()));
+            en.setDevSubtotal(subtotal);
+            Total = Total.add(en.getDevSubtotal());
+        }
+        double aux = Total.doubleValue()+(Total.doubleValue()*0.12); 
+        setTotalV(Double.toString((double)Math.round(aux * 100d) / 100d));
      }
      
-     //metodos pra editar la cantidad del producto en la tabla
-     public void onRowEdit(RowEditEvent event) {
-         total();
+    //metodos pra editar la cantidad del producto en la tabla
+    public void onRowEdit(RowEditEvent event) {
+        this.total();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN", " Se modificaron campos "));
     }
      
     public void onRowCancel(RowEditEvent event) {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN", "  No se hicieron cambios  "));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACIÓN", "  No se hicieron cambios  "));
     }
     
         public void verReporteDos() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {

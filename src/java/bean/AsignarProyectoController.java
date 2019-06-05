@@ -68,19 +68,16 @@ public class AsignarProyectoController implements Serializable {
     private String cantidadProducto;
     private String precioUnitario;
     private int productoSeleccionado;
-    private int cantidadSeleccionada;
+    private BigDecimal cantidadSeleccionada;
     private List<Productos> Lista;
 
-    public int getCantidadSeleccionada() {
+    public BigDecimal getCantidadSeleccionada() {
         return cantidadSeleccionada;
     }
 
-    public void setCantidadSeleccionada(int cantidadSeleccionada) {
+    public void setCantidadSeleccionada(BigDecimal cantidadSeleccionada) {
         this.cantidadSeleccionada = cantidadSeleccionada;
     }
-
-    
-    
     
     public String getNumAsigancion() {
         return numAsigancion;
@@ -296,7 +293,7 @@ public class AsignarProyectoController implements Serializable {
         }
     }
 
-    public void pedirCantidadProducto(int codigo,int cantidad) {
+    public void pedirCantidadProducto(int codigo,BigDecimal cantidad) {
         this.productoSeleccionado = codigo;
         this.cantidadSeleccionada=cantidad;
         //csntidas
@@ -309,12 +306,12 @@ public class AsignarProyectoController implements Serializable {
                  this.cantidadProducto = null;
             }else{
                 this.selectedR = ejbFacadeR.encontarProductos(this.productoSeleccionado);
-                if(Integer.parseInt(this.cantidadProducto)>this.selectedR.getProCantidad()){
+                if( Double.parseDouble(this.cantidadProducto)>this.selectedR.getProCantidad().doubleValue() ){
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "INCORRECTO", " No existe Stock suficiente "));
                     this.cantidadProducto = null;
                 }else{
                     items2.add(new AsignarProyecto(null, new Date(), this.Transportista, 
-                        Integer.parseInt(this.getCantidadProducto()), this.Observaciones, BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto)*(this.selectedR.getProPrecioUni()).doubleValue() ),this.selectedP,
+                        BigDecimal.valueOf(Double.parseDouble(this.getCantidadProducto())), this.Observaciones, BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto)*(this.selectedR.getProPrecioUni()).doubleValue() ),this.selectedP,
                         this.selectedR,this.selectedRes)  );  
                     this.total();
                     this.cantidadProducto = null;
@@ -385,7 +382,7 @@ public class AsignarProyectoController implements Serializable {
                     this.ejbFacade.create(en); 
 
                     Productos pro = this.ejbFacadeR.encontarProductos(en.getProId4().getProId4());
-                    pro.setProCantidad(pro.getProCantidad()-en.getSalCantidad());
+                    pro.setProCantidad(BigDecimal.valueOf(pro.getProCantidad().doubleValue() -en.getSalCantidad().doubleValue()));
                     pro.setProSubPrec(BigDecimal.valueOf(pro.getProCantidad().doubleValue()*pro.getProPrecioUni().doubleValue()));
                     pro.setProTotalIva( BigDecimal.valueOf(pro.getProSubPrec().doubleValue()+pro.getProSubPrec().doubleValue()*0.12));
                     
@@ -424,7 +421,7 @@ public class AsignarProyectoController implements Serializable {
     public void total(){
          BigDecimal Total =new BigDecimal("0");
          for(AsignarProyecto en : items2){
-             BigDecimal subtotal= en.getProId4().getProPrecioUni().multiply(new BigDecimal(en.getSalCantidad()));
+             BigDecimal subtotal= en.getProId4().getProPrecioUni().multiply(new BigDecimal(en.getSalCantidad().doubleValue()));
              en.setSalSubtotal(subtotal);
              Total = Total.add(en.getSalSubtotal());
          }

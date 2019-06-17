@@ -1154,7 +1154,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.SalidaReporte.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.SalidaReporte.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.SalidaReporte.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.Thumbs_1.db}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto.jrxml}" todir="${build.web.dir}//"/>

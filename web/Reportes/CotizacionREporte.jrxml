@@ -59,7 +59,7 @@ WHERE
 	<field name="cotizacion_COT_NUMERO" class="java.lang.String"/>
 	<field name="cotizacion_COT_FECHA" class="java.sql.Date"/>
 	<field name="cotizacion_COT_PRE_UNI" class="java.math.BigDecimal"/>
-	<field name="cotizacion_COT_CANTIDAD" class="java.lang.Integer"/>
+	<field name="cotizacion_COT_CANTIDAD" class="java.math.BigDecimal"/>
 	<field name="cotizacion_COT_SUBTOTAL" class="java.math.BigDecimal"/>
 	<field name="cotizacion_COT_TOTAL" class="java.math.BigDecimal"/>
 	<field name="cotizacion_COT_TOTAL_IVA" class="java.math.BigDecimal"/>

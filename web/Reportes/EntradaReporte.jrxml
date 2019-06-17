@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="70ab46a5-54cd-438f-8b07-789b74a326d5">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="Num_entrada" class="java.lang.String">
@@ -59,7 +59,7 @@ WHERE
 	<field name="entradas_ENT_CODIGO" class="java.lang.String"/>
 	<field name="entradas_ENT_TRANSPORTISTA" class="java.lang.String"/>
 	<field name="entradas_ENT_LUGAR_LLEGADA" class="java.lang.String"/>
-	<field name="entradas_ENT_CANTIDAD" class="java.lang.Integer"/>
+	<field name="entradas_ENT_CANTIDAD" class="java.math.BigDecimal"/>
 	<field name="entradas_ENT_PRECIO_UNI" class="java.math.BigDecimal"/>
 	<field name="entradas_ENT_FECHA" class="java.sql.Date"/>
 	<field name="entradas_ENT_SUBTOTAL" class="java.math.BigDecimal"/>
@@ -278,36 +278,36 @@ WHERE
 		<band height="46" splitType="Stretch">
 			<textField>
 				<reportElement x="26" y="5" width="80" height="20" forecolor="#000000" uuid="454a3f72-3dbc-438f-947f-45eceeeeff1b"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_CODIGOPRO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="108" y="5" width="126" height="40" forecolor="#000000" uuid="c5709488-db55-45ec-9d2b-d62cabe9cb21"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productos_PRO_NOMBRES}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="247" y="5" width="80" height="20" forecolor="#000000" uuid="df248298-208a-4f2b-9c86-db5a22a53199"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entradas_ENT_CANTIDAD}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="345" y="5" width="98" height="20" forecolor="#000000" uuid="da28ebcd-9bbe-4be3-988b-a7e01e7aad73"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entradas_ENT_PRECIO_UNI}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="443" y="5" width="80" height="20" forecolor="#000000" uuid="4d00b969-f953-4369-a00f-96905a6c4553"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{entradas_ENT_SUBTOTAL}]]></textFieldExpression>
 			</textField>

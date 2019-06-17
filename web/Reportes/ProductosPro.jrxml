@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba62152d-8ec3-42f6-9726-98a45a3c7492">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="62"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
      productos.`PRO_ID4` AS productos_PRO_ID4,
@@ -48,7 +48,7 @@ FROM
 	<field name="productos_PRO_SERIAL" class="java.lang.String"/>
 	<field name="productos_PRO_TAMANOMEDIDA" class="java.lang.String"/>
 	<field name="productos_PRO_CATEGORIA" class="java.lang.String"/>
-	<field name="productos_PRO_CANTIDAD" class="java.lang.Integer"/>
+	<field name="productos_PRO_CANTIDAD" class="java.math.BigDecimal"/>
 	<field name="productos_PRO_PRECIO_UNI" class="java.math.BigDecimal"/>
 	<field name="productos_PRO_IMAGEN" class="java.lang.Object"/>
 	<field name="productos_PRO_ADI_OBSERVACION" class="java.lang.String"/>

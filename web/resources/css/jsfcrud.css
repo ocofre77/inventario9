@@ -43,3 +43,9 @@
     background: #B4B4B4 !important;
     color: #E3E3E3 !important;
 }
+
+
+.companyHeaderGrid.ui-panelgrid>*>tr,
+.companyHeaderGrid.ui-panelgrid>*>tr>td {
+    border: none !important;
+}

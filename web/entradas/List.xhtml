@@ -288,13 +288,13 @@
                            hideEffect="explode" >
                     <br/>
                     <h:panelGrid columns="2" cellpadding="5" styleClass="ui-grid">
-                     Cantidad: <p:spinner id="cantidad" min="0" value="#{entradasController.cantidadProducto}" />
-                         <br/><br/>
-                     Prec.Unit.<p:spinner id="precio" value="#{entradasController.precioUnitario}" style="height: 12px !important; box-shadow: none !important; border-radius: 4px 0px 0px 4px;" prefix="$"  min="0.01" stepFactor="0.01" />
+                        Cantidad: <p:spinner id="cantidad" min="0.01" stepFactor="0.01" value="#{entradasController.cantidadProducto}" />
+                        <br/><br/>
+                        Prec.Unit.<p:spinner id="precio" value="#{entradasController.precioUnitario}" style="height: 12px !important; box-shadow: none !important; border-radius: 4px 0px 0px 4px;" prefix="$"  min="0.01" stepFactor="0.01" />
                         <br/><br/>
                         <p:commandButton value="ACEPTAR"  actionListener="#{entradasController.agregarDatosProductos()}" 
-                                      oncomplete="PF('dialogoProductosCanPre').hide();"
-                                      update=":AsignarProyectoListForm:tablaProductosEntrada :AsignarProyectoListForm:dlgProductosCanPre :AsignarProyectoListForm:gridTotal"/>
+                                          oncomplete="PF('dialogoProductosCanPre').hide();"
+                                          update=":AsignarProyectoListForm:tablaProductosEntrada :AsignarProyectoListForm:dlgProductosCanPre :AsignarProyectoListForm:gridTotal"/>
                     </h:panelGrid>
                 </p:dialog>
                 

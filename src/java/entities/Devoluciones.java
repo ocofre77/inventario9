@@ -126,7 +126,7 @@ public class Devoluciones implements Serializable {
     public void setDevNumero(String devNumero) {
         this.devNumero = devNumero;
     }
-
+    
     public Date getDevFecha() {
         return devFecha;
     }

@@ -59,7 +59,11 @@
                                 </p:column>
                                 <p:column headerText="CANTIDAD" >
                                      <p:cellEditor>
-                                         <f:facet name="output"><h:outputText value="#{item.devCantidad}"/></f:facet>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{item.devCantidad}">
+                                                <f:convertNumber pattern="#0.00" locale="US" />
+                                            </h:outputText>
+                                        </f:facet>
                                         <f:facet name="input">
                                             <p:inputText value="#{item.devCantidad}" label="Cantidad de producto" 
                                                          required="true" requiredMessage="Es necesario una cantidad" 
@@ -73,7 +77,9 @@
                                     <h:outputText value="#{item.salId.proId4.proPrecioUni}"/>                        
                                 </p:column>
                                 <p:column headerText="SUBTOTAL" >
-                                    <h:outputText value="#{item.devSubtotal}"/> 
+                                    <h:outputText value="#{item.devSubtotal}">
+                                        <f:convertNumber pattern="#0.00" locale="US"  />
+                                    </h:outputText> 
                                 </p:column> 
 
                                 <p:column headerText="EDITAR" >
@@ -210,19 +216,12 @@
                         <h:outputText value="#{devolucionesController.cantidadSeleccionada}" title="#{bundle.ViewProductosTitle_proCantidad}"/>
                     </center>
                     <br/>
-                         
                     <p:commandButton value="ACEPTAR" actionListener="#{devolucionesController.agregarDatosProductos()}"  
                                       oncomplete="PF('dialogoProductos').hide(); PF('dialogoProductosCanPre').hide();"
                                       update=":AForm:tablaProductosEntrada :AForm:dlgProductosCanPre :AForm:gridTotal"/>
-
                 </p:dialog>
-                
-                
             </h:form>
-
-            
         </ui:define>
     </ui:composition>
-
 </html>
 

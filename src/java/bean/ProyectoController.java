@@ -8,6 +8,7 @@ import sesion.ProyectoFacade;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +32,24 @@ public class ProyectoController implements Serializable {
     private sesion.ProyectoFacade ejbFacade;
     private List<Proyecto> items = null;
     private Proyecto selected;
+    private String fechaDesde;
+    private String fechaHasta;
+
+    public String getFechaDesde() {
+        return fechaDesde;
+    }
+
+    public void setFechaDesde(String fechaDesde) {
+        this.fechaDesde = fechaDesde;
+    }
+
+    public String getFechaHasta() {
+        return fechaHasta;
+    }
+
+    public void setFechaHasta(String fechaHasta) {
+        this.fechaHasta = fechaHasta;
+    }
 
     public ProyectoController() {
     }
@@ -58,7 +77,47 @@ public class ProyectoController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-        public void verReporteDos() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    
+    
+    private boolean validateProyecto(){
+        return (!selected.getProyNombre().equals("") || !selected.getProyNombre().isEmpty() || selected.getProyNombre() != null);
+    }
+    
+    private boolean validateDates()throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        try{
+            Date date1 = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(fechaDesde); 
+            Date date2 = new java.text.SimpleDateFormat("dd/MM/yyyy").parse(fechaHasta); 
+            return true;
+        }
+        catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Verifique las fechas", "Verifique las fechas"));
+            return false;
+        }
+    }
+        
+    public void valorProyecto() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        try{
+            if (validateProyecto() && validateDates()) {    
+                //Instancia hacia la clase reporteProductos        
+                reporteTotalProyecto rFactura = new reporteTotalProyecto();
+
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+                String ruta = servletContext.getRealPath("/Reportes/TotalProyectoFechas.jasper");
+                rFactura.getReporteFechas(ruta, selected.getProyNombre(),fechaDesde, fechaHasta );
+                FacesContext.getCurrentInstance().responseComplete();
+            } 
+            else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Alerta", "Seleccione un producto"));
+            }
+        }
+        catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Seleccione un proyecto", "Seleccione un proyecto"));
+        }
+    }
+         
+    
+    public void verReporteDos() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
          try {
           if (!selected.getProyNombre().equals("") || !selected.getProyNombre().isEmpty() || selected.getProyNombre() != null) {    
         //Instancia hacia la clase reporteProductos        

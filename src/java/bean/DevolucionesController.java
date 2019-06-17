@@ -259,9 +259,6 @@ public class DevolucionesController implements Serializable {
         this.selectD = selectD;
     }
 
-    
-    
-    
     public DevolucionesController() {
     }
 
@@ -329,9 +326,12 @@ public class DevolucionesController implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "INCORRECTO", " Cantidad Excedida "));
                     this.cantidadProducto = null;
                 } else {
-                    items2.add(new Devoluciones(null, new Date(), BigDecimal.valueOf( Double.parseDouble( this.getCantidadProducto())),
-                            BigDecimal.valueOf(Double.parseDouble(this.cantidadProducto) * (this.productos.getProPrecioUni()).doubleValue()),
-                            this.Observaciones, this.selectD.getSalNumero(), this.selectD));
+                    BigDecimal subTotal = new BigDecimal(Double.parseDouble(this.cantidadProducto) * (this.productos.getProPrecioUni()).doubleValue()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+                    //subTotal.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+                    items2.add(new Devoluciones(null, new Date(), 
+                            BigDecimal.valueOf( Double.parseDouble( this.getCantidadProducto())),
+                            subTotal,
+                            this.Observaciones, this.selectD.getSalNumero(), this.selectD));                    
                     this.total();
                     this.cantidadProducto = null;
                 }

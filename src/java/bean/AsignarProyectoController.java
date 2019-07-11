@@ -301,7 +301,7 @@ public class AsignarProyectoController implements Serializable {
     
      public void agregarDatosProductos(){
         try{
-            if(!(this.cantidadProducto.matches("[0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") ){
+            if(!(this.cantidadProducto.matches("[0-9.0-9]*")) || this.cantidadProducto.equals("0") || this.cantidadProducto.equals("") ){
                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"ERROR"," Datos Incorrectos "));
                  this.cantidadProducto = null;
             }else{

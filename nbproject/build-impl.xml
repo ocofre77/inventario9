@@ -1121,47 +1121,32 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.omnifaces-2.6.9-sources.jar-1}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.nblibraries.properties-lib}" todir="${build.web.dir}/WEB-INF/classes"/>
         <copyfiles files="${libs.javaee-api-7.0.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.CotizacionREporte.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.CotizacionREporte.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.CotizacionREporte.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.DevolucionSalida.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.DevolucionSalida.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.DevolucionSalida.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.DevolucionesEntradas.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.DevolucionesEntradas.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.DevolucionesEntradas.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.EntradaReporte.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.EntradaReporte.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.EntradaReporte.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.PrimProducto.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.PrimProducto.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.PrimProducto.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.ProducTotales.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProducTotales.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProducTotales.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.ProductosCaducidad.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosCaducidad.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosCaducidad.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.ProductosHerramientas.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosHerramientas.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosHerramientas.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.ProductosMaquinaria.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosMaquinaria.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosMaquinaria.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.ProductosVeh_culos.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosVeh_culos.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.ProductosVeh_culos.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.SalidaReporte.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.SalidaReporte.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.SalidaReporte.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.TotalProyecto.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto.jrxml}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.TotalProyecto_subreport1.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto_subreport1.jasper}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.TotalProyecto_subreport2.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto_subreport2.jasper}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.TotalProyecto_subreport3.html}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto_subreport3.jasper}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.TotalProyecto_subreport3.jrxml}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.logo-reporte.jpg}" todir="${build.web.dir}//"/>

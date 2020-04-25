@@ -49,6 +49,7 @@ public class ProveedorFacade extends AbstractFacade<Proveedor> {
         }
         return proveedor;
     }
+     
     public Proveedor encontarProveedor1(String selected) {
         Proveedor proveedor = null;
         String consulta;

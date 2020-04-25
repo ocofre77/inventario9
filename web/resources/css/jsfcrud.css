@@ -38,14 +38,22 @@
        font-size: 10px !important;
    }
    
-   
+/*   
    .ui-menubar,.ui-menu-child,.ui-menu {
     background: #B4B4B4 !important;
     color: #E3E3E3 !important;
 }
+*/
 
+.ui-menu{
+    border:none;
+    padding-top: 0;
+    padding-bottom: 0;
+        
+}
 
 .companyHeaderGrid.ui-panelgrid>*>tr,
 .companyHeaderGrid.ui-panelgrid>*>tr>td {
     border: none !important;
 }
+

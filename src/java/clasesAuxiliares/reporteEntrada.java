@@ -6,6 +6,7 @@
 package clasesAuxiliares;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,10 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -75,6 +78,61 @@ public class reporteEntrada {
                 }
             }
         }
+    }
+
+
+    public void getReporteExcel(String ruta,  String  numEntrada)throws ClassNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException{
+
+        Connection conexion;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario7", "root", "");
+
+        Map parameter = new HashMap();
+        parameter.put("Num_entrada", numEntrada);
+
+        File file = new File(ruta);
+        String nombreArchivo = "attachment; filename=Entrada".concat("-").concat(numEntrada).concat(".xls");
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        //reponse.setContentType("application/xls");
+        response.addHeader("Content-disposition", nombreArchivo);
+
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(file.getPath());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conexion);
+
+        JRXlsExporter jrExporter = new JRXlsExporter();
+        jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        jrExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
+        jrExporter.exportReport();
+        
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void getReportePdf(String ruta,  String  numEntrada)throws ClassNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException{
+
+        Connection conexion;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario7", "root", "");
+
+        Map parameter = new HashMap();
+        parameter.put("Num_entrada", numEntrada);
+
+        File file = new File(ruta);
+        String nombreArchivo = "attachment; filename=Entrada".concat("-").concat(numEntrada).concat(".pdf");
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        //reponse.setContentType("application/xls");
+        response.addHeader("Content-disposition", nombreArchivo);
+
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(file.getPath());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conexion);
+
+        JRPdfExporter jrExporter = new JRPdfExporter();
+        jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        jrExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
+        jrExporter.exportReport();
+        
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
 }

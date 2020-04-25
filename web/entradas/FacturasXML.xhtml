@@ -12,76 +12,92 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form style="display:block;">
-                <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray;">
-                    <p:commandButton value="Nueva Entrada" icon="ui-icon-key" 
-                        actionListener="#{entradasController.generarGuia()}" 
-                        update=":AsignarProyectoListForm"/>
+            <h:form enctype="multipart/form-data">   
+                <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray;" columns="4">
+                    <p:commandButton value="Subir" ajax="false"  actionListener="#{entradasController.upload()}" disabled="false" />
+                    <p:fileUpload id="uploader" value="#{entradasController.file}" mode="simple" />
+                    <p:outputLabel value="FECHA: " style="font-weight: bold"/>                     
+                    <p:outputLabel value="#{entradasController.fechaSistema}" />
+                    <p:message for="uploader"></p:message>
                 </h:panelGrid>                
-            </h:form>
-            <h:form id="AsignarProyectoListForm">
+            </h:form>            
+            
+            <h:form id="AsignarProyectoListForm" >
                 <p:growl id="mensajeGeneral" showDetail="true" autoUpdate="true" life="3000"/>
                 <p:panel header="INGRESAR PRODUCTOS" style="width: 900px; margin:  0 auto; text-align: center">
-                    <p:layout id="capaDatosProveedor" style="width: 100%; height: 130px">
-                        <p:layoutUnit  id="datosProveedor" position="center" style="padding: 5px; text-align: justify; font-size: 14px" size="500">
-                           
-                            <h:panelGrid id="gridBuscarDatosProveedor" columns="5">
-                                <p:outputLabel value="Proveedor" style="font-weight: bold"/>                               
-                                <p:commandButton icon="ui-icon-person" oncomplete="PF('dialogoProveedores').show();"
-                                                 update=":AsignarProyectoListForm:dlgProveedor"/>
-
-                                <p:outputLabel value="FECHA: " style="font-weight: bold"/>                     
-                                <p:outputLabel value="#{entradasController.fechaSistema}" />
-                            </h:panelGrid>
-
-                            <p:separator/>
-                            
-                            <h:panelGrid id="gridDatosProveedor" columns="6">
-                     
-                                <p:outputLabel value="Proveedor: " style="font-weight: bold"/>
-                                <p:outputLabel id="lblNombreProveedor" value="#{entradasController.selectedP.provNombre}"/>
-                                <p:outputLabel value="Dirección: " style="font-weight: bold"/>
-                                <p:outputLabel id="lblDireccionProveedor" value="#{entradasController.selectedP.provDireccion}"/>
-                                <p:outputLabel value="Transportista: " style="font-weight: bold" />
-                                <p:inputText size="12" value="#{entradasController.transportista}"/>
-                                <p:outputLabel value="Telefono: " style="font-weight: bold"/>
-                                <p:outputLabel id="lblTelefonoProveedor" value="#{entradasController.selectedP.provTelefono}"/>
-                                <p:outputLabel value="RUC: " style="font-weight: bold"/>
-                                <p:outputLabel id="lblRucProveedor" value="#{entradasController.selectedP.provRuc}"/>
-                                <p:outputLabel value="*Lugar llegada " style="font-weight: bold"/>
-                                <p:selectOneMenu id="bdId" value="#{entradasController.bodega}"  requiredMessage="#{bundle.EditProductosRequiredMessage_bdId}" style="size: 12px;">
-                                    <f:selectItem itemValue="" itemLabel="Seleccione uno"/>
-                                    <f:selectItems value="#{entradasController.lstBodega}"
-                                               var="bdIdItem"
-                                               itemValue="#{bdIdItem}"/>
-                                </p:selectOneMenu> 
-                            </h:panelGrid>
-                            
+                    <p:layout id="capaDatosProveedor" style="width: 100%; height: 110px">
+                        <p:layoutUnit  id="datosProveedor" position="center"  size="500">
+                            <p:panelGrid id="gridDatosProveedor"  style="text-align: left;"  styleClass="companyHeaderGrid"   >
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton value="Proveedor" icon="ui-icon-person" oncomplete="PF('dialogoProveedores').show();"
+                                                         update=":AsignarProyectoListForm:dlgProveedor"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="lblNombreProveedor" value="#{entradasController.selectedP.provNombre}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="Dirección: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="lblDireccionProveedor" value="#{entradasController.selectedP.provDireccion}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Telefono: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="lblTelefonoProveedor" value="#{entradasController.selectedP.provTelefono}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="RUC: " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel id="lblRucProveedor" value="#{entradasController.selectedP.provRuc}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Transportista: " style="font-weight: bold" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText size="25" value="#{entradasController.transportista}" autocomplete="off"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel value="*Lugar llegada " style="font-weight: bold"/>
+                                    </p:column>
+                                    <p:column >
+                                        <p:selectOneMenu id="bdId"  value="#{entradasController.bodega}"  requiredMessage="#{bundle.EditProductosRequiredMessage_bdId}" style="width: 250px">
+                                            <f:selectItem itemValue="" itemLabel="Seleccione uno"/>
+                                            <f:selectItems value="#{entradasController.lstBodega}"
+                                                       var="bdIdItem"
+                                                       itemValue="#{bdIdItem}"/>
+                                        </p:selectOneMenu> 
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
                         </p:layoutUnit>
-                        
                         <p:layoutUnit id="datoGuia" position="east" style="padding: 5px; text-align: center; 
                                       font-size:  14px" size="120">
-                            <h:panelGrid columns="1" style="font-size: 20px; font-weight: bold; 
+                            <h:panelGrid columns="1" style="font-size: 14px; font-weight: bold; 
                                          margin-bottom: 30px; margin: 0 auto">
                                 NÚMERO<BR/> GUIA  
                                 <p:outputLabel  value="#{entradasController.numeroGuia}" style="color: red"/>
                             </h:panelGrid>
                         </p:layoutUnit>
                     </p:layout> 
-                    
-                     <p:layout id="capaDatosProductos" style="width: 100%; height: 300px">
+                     <p:layout id="capaDatosProductos" style="width: 100%; height: 300px; margin-top: 5px; ">
                          <p:layoutUnit  id="datosProducto" position="center" style="padding: 5px; text-align: justify; font-size: 14px" size="500">
-                        
-                            <p:separator/>
                             <h:panelGrid id="gridDatosProducto" columns="3">
                                 <p:outputLabel value="Agregar Nombre del producto: " style="font-weight: bold"/>
-                                <p:commandButton icon="ui-icon-cart" oncomplete="PF('dialogoProductos').show();"
-                                                 update=":AsignarProyectoListForm:dlgProductos"/>                                
+                                <p:commandButton icon="ui-icon-cart" oncomplete="PF('dialogoHomologados').show();"
+                                                 update=":AsignarProyectoListForm:dialogoHomologados"/>                                
                             </h:panelGrid>
-                            
-                            <p:dataTable id="tablaProductosEntrada" var="item" editable="true" value="#{entradasController.items2}" rowIndexVar="rowIndex">
+                             <p:dataTable id="tablaProductosEntrada" var="item" editable="true" value="#{entradasController.items2}" rowIndexVar="rowIndex">
                                 
-                                <p:ajax event="rowEdit" listener="#{entradasController.onRowEdit}" update=":AsignarProyectoListForm:tablaProductosEntrada :AsignarProyectoListForm:gridTotal" />
+                                <p:ajax event="rowEdit" listener="#{entradasController.onRowEdit}" 
+                                        update=":AsignarProyectoListForm:tablaProductosEntrada :AsignarProyectoListForm:gridTotal" />
                                 <p:ajax event="rowEditCancel" listener="#{entradasController.onRowCancel}" update=":AsignarProyectoListForm:tablaProductosEntrada" />
 
 
@@ -150,7 +166,11 @@
                                          <td>                                         
                                             <p:commandButton value="CANCELAR" icon="ui-icon-closethick" action="#{entradasController.limpiar()}" update=":AsignarProyectoListForm"/>
                                         </td>
+                                        <td>
+                                            
+                                        </td>
                                     </tr>
+                                    
                                 </table>
                             </center>
                             
@@ -203,105 +223,86 @@
                     
                 </p:dialog>
                 
-                <!--VENTANA PARA AÑADIR PRODUCTOS -->
-                <p:dialog id="dlgProductos" widgetVar="dialogoProductos" 
-                          resizable="false" showEffect="explode" header="Listado de Productos"
-                          hideEffect="explode" style="height: 300px;" >
+                <!-- PRODUCTOS HOMOLOGADOS -->
+                <p:dialog id="dialogoHomologados" widgetVar="dialogoHomologados" 
+                    resizable="false" showEffect="explode" header="Listado de Productos"
+                    hideEffect="explode" style="height: 300px;" >
                     
-                    <p:panelGrid columns="6">
-                        <p:row>
-                            <p:outputLabel value="Producto:"/>
-                            <p:inputText placeholder="Nombre Producto" value="#{entradasController.productoNombre}"/>
-                            <p:commandButton value="Buscar" 
-                                action="#{entradasController.getListaProductosByNombre()}" 
-                                update="datalist" />
-                            <p:column colspan="2"></p:column>
-                        </p:row>
-                        <p:row>
-                            <p:outputLabel value="Cantidad:"/>
-                            <p:spinner id="cantidad" min="0.01" stepFactor="0.01" 
-                                value="#{entradasController.cantidadProducto}" />
-                            <p:outputLabel value="Precio:"/>
-                            <p:spinner id="precio" min="0.01" stepFactor="0.01" prefix="$" 
-                                value="#{entradasController.precioUnitario}" />
-                            <p:commandButton value="ACEPTAR"  icon="pi pi-check"
-                                actionListener="#{entradasController.agregarDatosProductos()}" 
-                                update=":AsignarProyectoListForm:tablaProductosEntrada :AsignarProyectoListForm:gridTotal :AsignarProyectoListForm:dlgProductos"/>
-                            <p:commandButton value="Cerrar" icon="ui-icon-closethick"
-                                onclick="PF('dialogoProductos').hide();" 
-                                style="margin: 1em !important;"/>
-                        </p:row>
-                    </p:panelGrid>
-                        
-                    <p:dataTable id="datalist" value="#{entradasController.listaProductos}" var="item" style="width: 1100px;"
+                    <p:autoComplete size="50" placeholder="Nombre Producto Conalgi"  
+                        id="autocompleteProducto"
+                        value="#{entradasController.selectedProductComplete}" 
+                        completeMethod="#{entradasController.getListaProductosComplete}"
+                        var="producto" 
+                        itemLabel="#{producto.proNombres}" 
+                        itemValue="#{producto}"  minQueryLength="3"
+                    />
+
+                    <p:commandButton  value="HOMOLOGAR"  icon="pi pi-check"
+                        actionListener="#{entradasController.updateItemListaProductoXML()}"
+                        update=":AsignarProyectoListForm:autocompleteProducto :AsignarProyectoListForm:datalistHomogados"
+                        />
+                                    
+                    <p:dataTable id="datalistHomogados" value="#{entradasController.listaProductosXML}" 
+                                var="item" rowIndexVar="rowIndex"
+                                style="width: 900px;"
+                                editable="true" 
                                 paginator="true"
-                                rowKey="#{item.proId4}"
-                                rows="5"
-                                rowsPerPageTemplate="5,10,15,20,25,30"
+                                rowKey="#{item.codigo}"
+                                rows="10"
+                                rowsPerPageTemplate="10,15,20"
+                                selection="#{entradasController.selectedProductoXML}"
                                 selectionMode="single"
-                                selection="#{entradasController.productosSeleccionado}"
-                                 >     
+                                >                        
+                        <p:ajax event="rowEdit" listener="#{entradasController.onRowEdit}" update=":AsignarProyectoListForm:datalistHomogados" />
+                        <p:ajax event="rowEditCancel" listener="#{entradasController.onRowCancel}" update=":AsignarProyectoListForm:datalistHomogados" />
+
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
                         
-                        <p:column style="width: 100px;">
+                        <p:column rendered="false">
                             <f:facet name="header">
-                                <h:outputText value="CÓDIGO"/>
+                                <h:outputText value="CÓDIGO LOCAL"/>
                             </f:facet>
-                            <h:outputText value="#{item.proCodigopro}"/>
+                            <h:outputText value="#{item.idProducto}"/>
+                        </p:column>
+                        <p:column headerText="Id" >
+                            <f:facet name="header">
+                                <h:outputText value="CODIGO PRODUCTO LOCAL"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codProducto}" />
+                        </p:column>
+                        <p:column headerText="Id" rendered="false">
+                            <f:facet name="header">
+                                <h:outputText value="CODIGO PRODUCTO PROVEEDOR"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigo}"/>
                         </p:column>
                         <p:column headerText="Id" >
                             <f:facet name="header">
                                 <h:outputText value="NOMBRE PRODUCTO"/>
                             </f:facet>
-                            <h:outputText value="#{item.proNombres}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Bodega"/>
-                            </f:facet>
-                            <h:outputText value="#{item.bdId.bdNombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="MODELO"/>
-                            </f:facet>
-                            <h:outputText value="#{item.proModelo}"/>
-                        </p:column>
-                        <p:column style="width: 80px">
-                            <f:facet name="header">
-                                <h:outputText value="TAMAÑO / MEDIDA"/>
-                            </f:facet>
-                            <h:outputText value="#{item.proTamanomedida}"/>
+                            <h:outputText value="#{item.descripcion}"/>
                         </p:column>
                         <p:column style="width: 50px;">
                             <f:facet name="header">
                                 <h:outputText value="CANTIDAD"/>
                             </f:facet>
-                            <h:outputText value="#{item.proCantidad}"/>
+                            <h:outputText value="#{item.cantidad}"/>
                         </p:column>
                         <p:column style="width: 60px">
                             <f:facet name="header">
                                 <h:outputText value="PRECIO UNITARIO"/>
                             </f:facet>
-                            <h:outputText value="#{item.proPrecioUni}"/>
+                            <h:outputText value="#{item.precio}"/>
                         </p:column>
-                        <p:column style="width: 60px">
-                            <f:facet name="header">
-                                <h:outputText value="IMAGEN"/>
-                            </f:facet>
-                            <h:graphicImage value="/DisplayImage?Image_id=#{item.proId4}" width="25" height="25"></h:graphicImage>
-                        </p:column>
-                        
-<!--                        
-                        <p:column style="width: 80px">
-                            <f:facet name="header"></f:facet>
-                            <p:commandButton value="Seleccionar" 
-                                actionListener="#{entradasController.pedirCantidadProducto(item.proId4)}"/>
-                        </p:column>-->
-                        
                     </p:dataTable>
+                    <p:commandButton value="ACEPTAR" icon="pi pi-ckeck" actionListener="#{entradasController.agregarDatosProductoXML()}"></p:commandButton>
                 </p:dialog>
+
                 
             </h:form>
+            
         </ui:define>
     </ui:composition>
 

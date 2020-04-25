@@ -90,7 +90,7 @@ public class UsuarioController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             Usuario us = (Usuario) context.getExternalContext().getSessionMap().get("usuario");
             if(us==null){
-                context.getExternalContext().redirect("./PermisosInsuficientes.xhtml");
+                context.getExternalContext().redirect("../PermisosInsuficientes.xhtml");
             }
         }catch(Exception e){
         

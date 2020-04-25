@@ -72,6 +72,10 @@ public class ProductosFacade extends AbstractFacade<Productos> {
         return producto;
     
     }
+       
+       
+       
+       
      public Productos BuscarEspecifico(int id){
         Productos producto = null;
         String consulta;
@@ -129,7 +133,8 @@ public class ProductosFacade extends AbstractFacade<Productos> {
         }
         return productos;
     }
-      public Productos encontarProductos2(String selected) {
+    
+     public Productos encontarProductos2(String selected) {
         Productos productos = null;
         String consulta;
         try {
@@ -163,5 +168,21 @@ public class ProductosFacade extends AbstractFacade<Productos> {
         }
         return lstProductos;
     }
+     
+     
+    public List<Productos> productosByNombre(String nombreProducto) {
+        List<Productos> lstProductos=new ArrayList<>();
+        try {
+            if( !nombreProducto.equals("") ){
+            System.out.println("PRUEBA OR: " + nombreProducto );
+            Query query = em.createQuery("SELECT distinct(p) FROM Productos p WHERE p.proNombres LIKE ?1");
+            query.setParameter(1, nombreProducto);
+            lstProductos = query.getResultList();
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lstProductos;
+    } 
     
 }

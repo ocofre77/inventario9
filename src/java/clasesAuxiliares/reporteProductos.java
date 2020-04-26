@@ -64,5 +64,33 @@ public class reporteProductos {
             }
         }
     }
+
+    public void getCodeBarPdf(String ruta,  String  proCategoria)throws ClassNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException, JRException, IOException{
+
+        Connection conexion;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/inventario7", "root", "");
+
+        Map parameter = new HashMap();
+        parameter.put("CATEGORIA", proCategoria);
+
+        File file = new File(ruta);
+        String nombreArchivo = "attachment; filename=CodigoBarras".concat("-").concat(proCategoria).concat(".pdf");
+
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        //reponse.setContentType("application/xls");
+        response.addHeader("Content-disposition", nombreArchivo);
+
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(file.getPath());
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, conexion);
+
+        JRPdfExporter jrExporter = new JRPdfExporter();
+        jrExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        jrExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
+        jrExporter.exportReport();
+        
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
 }
     

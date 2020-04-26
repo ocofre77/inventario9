@@ -19,14 +19,9 @@ import java.io.InputStream;
 import sesion.ProductosFacade;
 
 import java.io.Serializable;
-import static java.lang.Math.log;
-import static java.lang.StrictMath.log;
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import static java.rmi.server.LogStream.log;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +39,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.servlet.ServletContext;
+import net.sf.jasperreports.engine.JRException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -67,7 +63,9 @@ public class ProductosController implements Serializable {
     
     private UploadedFile file;
     private StreamedContent download;
-    private  String razones="";
+    private String razones="";
+    private String proCategoria="";
+    
        //HERRAMIENTA
     @EJB
     private sesion.HerramientaFacade ejbFacade2;
@@ -204,6 +202,14 @@ public class ProductosController implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getProCategoria() {
+        return proCategoria;
+    }
+
+    public void setProCategoria(String proCategoria) {
+        this.proCategoria = proCategoria;
     }
 
     public Date getFec_mantenimiento() {
@@ -480,6 +486,14 @@ public class ProductosController implements Serializable {
         }
     }
     
+    public void imprimirCodigoBarras(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        String ruta = servletContext.getRealPath("/Reportes/PrimProducto.jasper");
+        
+        FacesContext.getCurrentInstance().responseComplete();
+    
+    }
 
     public void verReporte() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try {
@@ -612,7 +626,7 @@ public class ProductosController implements Serializable {
         } else {
             selected.setProTotalPro(items.size()+1);
             System.out.println("Total Productos "+items.size());
-            if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(new BigDecimal(0));}
+            if(selected.getProCantidad()==null ){ selected.setProCantidad(new BigDecimal(0));}
             selected.setProSubPrec(new BigDecimal(selected.getProCantidad().doubleValue()*selected.getProPrecioUni().doubleValue()));
             System.out.println("Subtotal "+selected.getProSubPrec());
             selected.setProTotalPrec(selected.getProSubPrec());
@@ -674,7 +688,7 @@ public class ProductosController implements Serializable {
     public void update() {
         this.pro1 = ejbFacade.Obtenerobj();
         guardarImagen();
-        if(selected.getProCantidad()==null ||selected.getProCantidad().equals(null) ){ selected.setProCantidad(new BigDecimal(0));}
+        if(selected.getProCantidad()==null ){ selected.setProCantidad(new BigDecimal(0));}
             selected.setProSubPrec(new BigDecimal(selected.getProCantidad().doubleValue()*selected.getProPrecioUni().doubleValue()));
             System.out.println("Subtotal "+selected.getProSubPrec());
             selected.setProTotalPrec(selected.getProSubPrec());
@@ -799,5 +813,24 @@ public class ProductosController implements Serializable {
         }
 
     }
+
+
+    public void BarCodes() throws ClassNotFoundException, SQLException, JRException, IOException, InstantiationException, IllegalAccessException{
+        if( this.proCategoria.length() != 0 && !this.proCategoria.contains("---")){ 
+            reporteProductos reporte = new reporteProductos();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+            String ruta = servletContext.getRealPath("/Reportes/ProductBarCode.jasper");
+            reporte.getCodeBarPdf(ruta, this.proCategoria);
+            FacesContext.getCurrentInstance().responseComplete();
+            this.proCategoria="";
+        }
+        else
+        {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Second Message", "Debe Seleccionar el tipo de categoria."));
+        }
+    }
+
 
 }

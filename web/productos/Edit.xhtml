@@ -31,7 +31,7 @@
                         <p:outputLabel value="#{bundle.EditProductosLabel_proPrecioUni}" for="proPrecioUni" />
                         <p:inputText id="proPrecioUni" value="#{productosController.selected.proPrecioUni}" title="#{bundle.EditProductosTitle_proPrecioUni}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_proPrecioUni}"/>
                         <p:outputLabel value="#{bundle.EditProductosLabel_proImagen}" for="proImagen" />
-                        <h:graphicImage  id="proImagen" value="/DisplayImage?Image_id=#{productosController.selected.proId4}" width="50" height="50">              
+                        <h:graphicImage  id="proImagen" value="/DisplayImage?Image_id=#{productosController.selected.proId4}" width="100" height="100">              
                             <p:fileUpload id="proImagen1" value="#{productosController.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
                         </h:graphicImage>
                         <p:outputLabel value="#{bundle.EditProductosLabel_proAdiObservacion}" for="proAdiObservacion" />
@@ -44,8 +44,10 @@
                                            itemValue="#{bdIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productosController.update}" value="#{bundle.Save}" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductosEditDialog');" ajax="false"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductosEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{productosController.update}" value="#{bundle.Save}" 
+                                     update="display,:ProductosListForm:datalist,:growl" 
+                                     oncomplete="handleSubmit(args, 'ProductosEditDialog');" ajax="false"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('ProductosEditDialog').hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
